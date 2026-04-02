@@ -1,0 +1,82 @@
+package org.example.screening.filter;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.example.screening.repository.TokenRepository;
+import org.example.screening.util.AuthUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import java.io.IOException;
+import java.security.PublicKey;
+import java.util.Arrays;
+import java.util.List;
+
+@Component
+public class JWTTokenValidatorFilter extends OncePerRequestFilter {
+
+    private static final List<String> EXCLUDED_PATHS = Arrays.asList(
+            "/login",
+            "/auth/login",
+            "/auth/register",
+            "/user",
+            "/auth/refresh"
+    );
+
+    @Autowired
+    private TokenRepository tokenRepository;
+
+    @Autowired
+    private AuthUtil authUtil;
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        String jwt = authUtil.extractJwt(request);
+        if (jwt!=null){
+            if (tokenRepository.isAccessTokenBlacklisted(jwt)) {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.getWriter().write("Session has been terminated. Please log in again.");
+                return;
+            }
+
+        try {
+            PublicKey publicKey = authUtil.getPublicKey();
+                if (publicKey!=null){
+                    Claims claims = Jwts.parser()
+                            .verifyWith(publicKey)
+                            .build()
+                            .parseSignedClaims(jwt)
+                            .getPayload();
+                    String email = claims.get("email",String.class);
+                    String authorities = claims.get("authorities",String.class);
+
+                    Authentication authentication = new UsernamePasswordAuthenticationToken(email, null,
+                            AuthorityUtils.commaSeparatedStringToAuthorityList(authorities));
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                }
+            } catch (Exception e) {
+                // ADD THIS LINE to print the true cause to your terminal
+                System.out.println("JWT PARSING FAILED BECAUSE: " + e.getMessage());
+                e.printStackTrace();
+
+                throw new BadCredentialsException("Invalid Token received");
+            }
+        }
+        filterChain.doFilter(request,response);
+    }
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        return EXCLUDED_PATHS.contains(request.getServletPath());
+    }
+}
