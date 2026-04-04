@@ -13,6 +13,6 @@ public record RecordRequest(
         @NotNull TransactionType type,
         @NotBlank String category,
         String description,
-        LocalDate date
+        LocalDate transactionDate
 )
 {}

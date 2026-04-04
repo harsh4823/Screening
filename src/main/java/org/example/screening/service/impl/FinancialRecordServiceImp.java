@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -37,6 +38,7 @@ public class FinancialRecordServiceImp implements IFinancialRecordService {
                 .transactionType(request.type())
                 .category(request.category())
                 .description(request.description())
+                .transactionDate(request.transactionDate())
                 .user(user)
                 .build();
 
@@ -47,7 +49,7 @@ public class FinancialRecordServiceImp implements IFinancialRecordService {
     @Override
     public Page<RecordResponse> getAllRecords(
             AuthUser authUser, Pageable pageable, TransactionType type,
-            String category, LocalDateTime from, LocalDateTime to
+            String category, LocalDate from, LocalDate to
     ) {
         Long userIdFilter = (authUser.getRole() == Role.ROLE_ADMIN || authUser.getRole() == Role.ROLE_ANALYST)
                 ? null : authUser.getUserId();

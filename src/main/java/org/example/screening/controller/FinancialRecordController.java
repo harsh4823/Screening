@@ -43,7 +43,7 @@ public class FinancialRecordController {
     }
 
     @GetMapping("/get")
-    @PreAuthorize("hasAnyRole('ADMIN','ANALYST','VIEWER')")
+    @PreAuthorize("hasAnyRole('ADMIN','ANALYST')")
     public ResponseEntity<Page<RecordResponse>> getAllRecords(
             Authentication authentication,
             @RequestParam(defaultValue = "0") int page,
@@ -55,11 +55,9 @@ public class FinancialRecordController {
     ){
         AuthUser authUser = authUtil.resolveUser(authentication);
         Pageable pageable = PageRequest.of(page,size, Sort.by("createdAt").descending());
-        LocalDateTime fromDateTime = from != null ? from.atStartOfDay() : null;
-        LocalDateTime toDateTime = to != null ? to.atStartOfDay() : null;
 
         return ResponseEntity.ok(financialRecordService.getAllRecords(
-                authUser,pageable,type,category, fromDateTime, toDateTime));
+                authUser,pageable,type,category, from, to));
     }
 
     @PutMapping("/update/{recordId}")

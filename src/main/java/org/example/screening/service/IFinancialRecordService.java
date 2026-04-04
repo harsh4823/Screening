@@ -7,6 +7,7 @@ import org.example.screening.entity.TransactionType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public interface IFinancialRecordService {
@@ -16,8 +17,8 @@ public interface IFinancialRecordService {
             Pageable pageable,
             TransactionType type,
             String category,
-            LocalDateTime from,
-            LocalDateTime to
+            LocalDate from,
+            LocalDate to
     );
     RecordResponse updateRecord(RecordRequest recordRequest,Long recordId);
     void deleteRecord(Long recordId);

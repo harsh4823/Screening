@@ -8,6 +8,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -36,6 +37,8 @@ public class FinancialRecord {
     @Column(nullable = false)
     private String category;
 
+    private LocalDate transactionDate;
+    
     @CreatedDate
     @Column(nullable = false,updatable = false)
     private LocalDateTime createdAt;

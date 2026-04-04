@@ -6,12 +6,13 @@ import org.jspecify.annotations.NonNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -24,15 +25,15 @@ public interface FinancialRecordRepository extends JpaRepository<FinancialRecord
         WHERE (:userId IS NULL OR f.user.userId = :userId)
         AND (:type IS NULL OR f.transactionType = :type)
         AND (:category IS NULL OR LOWER(f.category) = LOWER(:category))
-        AND (:from IS NULL OR f.createdAt >= :from)
-        AND (:to IS NULL OR f.createdAt <= :to)
+        AND (:from IS NULL OR f.transactionDate >= :from)
+        AND (:to IS NULL OR f.transactionDate <= :to)
     """)
     Page<FinancialRecord> findWithFilters(
             @Param("userId") Long userId,
             @Param("type") TransactionType type,
             @Param("category") String category,
-            @Param("from") LocalDateTime from,
-            @Param("to") LocalDateTime to,
+            @Param("from") LocalDate from,
+            @Param("to") LocalDate to,
             Pageable pageable
     );
 
@@ -68,4 +69,8 @@ public interface FinancialRecordRepository extends JpaRepository<FinancialRecord
     ORDER BY 1 DESC, 2 DESC
 """)
     List<Object[]> getWeeklyTrends();
+
+    @Modifying
+    @Query("DELETE FROM FinancialRecord f WHERE f.user.userId = :userId")
+    void deleteByUserId(@Param("userId") Long userId);
 }
