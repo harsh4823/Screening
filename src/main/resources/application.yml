@@ -17,5 +17,10 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
     show-sql: true
 
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
 
 

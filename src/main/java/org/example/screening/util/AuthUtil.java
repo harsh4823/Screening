@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.example.screening.entity.AuthUser;
+import org.example.screening.exception.ResourceNotFoundException;
+import org.example.screening.repository.AuthUserRepository;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -26,6 +28,7 @@ import java.util.stream.Collectors;
 public class AuthUtil {
 
     private final Environment env;
+    private final AuthUserRepository authUserRepository;
     private PrivateKey privateKey;
     @Getter
     private PublicKey publicKey;
@@ -50,7 +53,7 @@ public class AuthUtil {
                 .collect(Collectors.joining(","));
 
         if (authorities.isEmpty()) {
-            authorities = "ROLE_USER";
+            authorities = "ROLE_VIEWER";
         }
 
         return Jwts.builder()
@@ -69,7 +72,7 @@ public class AuthUtil {
                 .issuer("Harsh")
                 .subject("JWT Token")
                 .claim("email", authUser.getEmail())
-                .claim("authorities", "ROLE_USER")
+                .claim("authorities", authUser.getRole().name())
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + 900000))
                 .signWith(privateKey, Jwts.SIG.RS256)
@@ -116,6 +119,11 @@ public class AuthUtil {
 
         response.addCookie(clearJwtCookie);
         response.addCookie(clearRefreshCookie);
+    }
+
+    public AuthUser resolveUser(Authentication authentication){
+        return authUserRepository.findByEmail((String) authentication.getPrincipal())
+                .orElseThrow(() -> new ResourceNotFoundException("User","Email",authentication.getName()));
     }
 
 }

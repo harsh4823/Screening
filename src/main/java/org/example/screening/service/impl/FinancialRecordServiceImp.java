@@ -7,6 +7,7 @@ import org.example.screening.dto.RecordResponse;
 import org.example.screening.entity.AuthUser;
 import org.example.screening.entity.FinancialRecord;
 import org.example.screening.entity.Role;
+import org.example.screening.entity.TransactionType;
 import org.example.screening.exception.ResourceNotFoundException;
 import org.example.screening.repository.AuthUserRepository;
 import org.example.screening.repository.FinancialRecordRepository;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -43,15 +45,14 @@ public class FinancialRecordServiceImp implements IFinancialRecordService {
     }
 
     @Override
-    public Page<RecordResponse> getAllRecords(AuthUser authUser, Pageable pageable) {
-        Page<FinancialRecord> recordPage;
-        if (authUser.getRole() == Role.ROLE_ADMIN ||
-                authUser.getRole() == Role.ROLE_ANALYST) {
-            recordPage =  recordRepository.findAll(pageable);
-        }else {
-            recordPage = recordRepository.findByUserId(authUser.getUserId(),pageable);
-        }
-        return recordPage.map(this::buildResponse);
+    public Page<RecordResponse> getAllRecords(
+            AuthUser authUser, Pageable pageable, TransactionType type,
+            String category, LocalDateTime from, LocalDateTime to
+    ) {
+        Long userIdFilter = (authUser.getRole() == Role.ROLE_ADMIN || authUser.getRole() == Role.ROLE_ANALYST)
+                ? null : authUser.getUserId();
+        return recordRepository.findWithFilters(userIdFilter,type,category,from,to,pageable)
+                .map(this::buildResponse);
     }
 
     @Transactional
