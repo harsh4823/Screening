@@ -114,8 +114,4 @@ public class AuthUserController {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Logout failed");
     }
 
-    @GetMapping("/hello")
-    public String hello(){
-        return "Hello World";
-    }
 }

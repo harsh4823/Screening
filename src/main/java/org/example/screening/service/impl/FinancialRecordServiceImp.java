@@ -71,6 +71,7 @@ public class FinancialRecordServiceImp implements IFinancialRecordService {
         return buildResponse(saved);
     }
 
+    @Transactional
     @Override
     public void deleteRecord(Long recordId) {
         FinancialRecord record = recordRepository.findById(recordId)

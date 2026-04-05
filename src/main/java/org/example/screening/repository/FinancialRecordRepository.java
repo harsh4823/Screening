@@ -76,8 +76,4 @@ public interface FinancialRecordRepository extends JpaRepository<FinancialRecord
     LIMIT 10
 """)
     List<FinancialRecord> findRecentActivity();
-
-    @Modifying
-    @Query("DELETE FROM FinancialRecord f WHERE f.user.userId = :userId")
-    void deleteByUserId(@Param("userId") Long userId);
 }

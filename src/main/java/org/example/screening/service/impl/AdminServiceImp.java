@@ -10,6 +10,8 @@ import org.example.screening.repository.FinancialRecordRepository;
 import org.example.screening.repository.RefreshTokenRepository;
 import org.example.screening.repository.TokenRepository;
 import org.example.screening.service.IAdminService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -52,5 +54,16 @@ public class AdminServiceImp implements IAdminService {
 
         tokenRepository.removeAllTokens(userId);
         refreshTokenRepository.deleteByAuthUser_UserId(userId);
+    }
+
+    @Override
+    public Page<AuthUserResponse> getAllUsers(Pageable pageable) {
+        Page<AuthUser> userPage = authUserRepository.findAll(pageable);
+        return userPage
+                .map(user -> new AuthUserResponse(
+                        user.getEmail(),
+                        user.getName(),
+                        user.getRole().name()
+                ));
     }
 }

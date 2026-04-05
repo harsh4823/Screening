@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public record RecordRequest(
-        @Positive(message = "Amount should be positive") BigDecimal amount,
+        @NotNull(message = "Amount is required")@Positive(message = "Amount should be positive") BigDecimal amount,
         @NotNull TransactionType type,
         @NotBlank String category,
         String description,
