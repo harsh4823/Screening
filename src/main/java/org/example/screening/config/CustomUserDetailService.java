@@ -4,6 +4,7 @@ package org.example.screening.config;
 import lombok.RequiredArgsConstructor;
 import org.example.screening.entity.AuthUser;
 import org.example.screening.repository.AuthUserRepository;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,6 +24,9 @@ public class CustomUserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AuthUser authUser = authUserRepository.findByEmail(username)
                 .orElseThrow(()-> new UsernameNotFoundException("User not found with username: " + username));
+        if (!authUser.isActive()){
+            throw new DisabledException("User is inactive.");
+        }
         List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(authUser.getRole().name()));
         return new User(authUser.getEmail(), authUser.getPassword(),authorities);
     }

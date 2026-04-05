@@ -3,7 +3,7 @@ package org.example.screening.dto;
 import org.example.screening.entity.TransactionType;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public record RecordResponse(
     Long recordId,
@@ -11,7 +11,7 @@ public record RecordResponse(
     TransactionType type,
     String category,
     String description,
-    LocalDateTime date,
+    LocalDate date,
     String createdBy
 )
 {}

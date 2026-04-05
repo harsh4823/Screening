@@ -9,6 +9,7 @@ public record DashboardSummaryDto(
         BigDecimal netBalance,
         List<CategoryTotal> categoryTotals,
         List<WeeklyTrends> weeklyTrends,
-        List<MonthlyTrends> monthlyTrends
+        List<MonthlyTrends> monthlyTrends,
+        List<RecordResponse> recentActivity
 )
 {}

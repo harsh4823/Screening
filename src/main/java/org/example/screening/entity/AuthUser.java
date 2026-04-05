@@ -3,6 +3,7 @@ package org.example.screening.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.*;
+import org.hibernate.annotations.SQLRestriction;
 import org.hibernate.proxy.HibernateProxy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -18,6 +19,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @Builder
 @Entity
+@SQLRestriction("deleted = false")
 @Table(name = "users")
 @EntityListeners(AuditingEntityListener.class)
 public class AuthUser {
@@ -38,6 +40,11 @@ public class AuthUser {
 
     @Builder.Default
     private boolean active = true;
+
+    @Column(nullable = false)
+    private boolean deleted = false;
+
+    private LocalDateTime deletedAt;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

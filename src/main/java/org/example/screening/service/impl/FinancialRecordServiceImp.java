@@ -75,7 +75,9 @@ public class FinancialRecordServiceImp implements IFinancialRecordService {
     public void deleteRecord(Long recordId) {
         FinancialRecord record = recordRepository.findById(recordId)
                 .orElseThrow(() -> new ResourceNotFoundException("Record","RecordId",recordId.toString()));
-        recordRepository.delete(record);
+        record.setDeleted(true);
+        record.setDeletedAt(LocalDateTime.now());
+        recordRepository.save(record);
     }
 
     private RecordResponse buildResponse(FinancialRecord saved) {
@@ -85,7 +87,7 @@ public class FinancialRecordServiceImp implements IFinancialRecordService {
                 saved.getTransactionType(),
                 saved.getCategory(),
                 saved.getDescription(),
-                saved.getCreatedAt(),
+                saved.getTransactionDate(),
                 saved.getUser().getEmail()
         );
     }

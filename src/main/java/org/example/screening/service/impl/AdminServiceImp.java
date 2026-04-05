@@ -8,8 +8,11 @@ import org.example.screening.exception.ResourceNotFoundException;
 import org.example.screening.repository.AuthUserRepository;
 import org.example.screening.repository.FinancialRecordRepository;
 import org.example.screening.repository.RefreshTokenRepository;
+import org.example.screening.repository.TokenRepository;
 import org.example.screening.service.IAdminService;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -18,6 +21,7 @@ public class AdminServiceImp implements IAdminService {
     private final AuthUserRepository authUserRepository;
     private final FinancialRecordRepository recordRepository;
     private final RefreshTokenRepository refreshTokenRepository;
+    private final TokenRepository tokenRepository;
 
     @Override
     public AuthUserResponse updateRole(Long userId, Role role) {
@@ -41,8 +45,12 @@ public class AdminServiceImp implements IAdminService {
     public void deleteUser(Long userId){
         AuthUser user = authUserRepository.findById(userId)
                 .orElseThrow(()-> new ResourceNotFoundException("User","UserId",userId.toString()));
-        recordRepository.deleteByUserId(userId);
+        user.setDeleted(true);
+        user.setDeletedAt(LocalDateTime.now());
+        user.setActive(false);
+        authUserRepository.save(user);
+
+        tokenRepository.removeAllTokens(userId);
         refreshTokenRepository.deleteByAuthUser_UserId(userId);
-        authUserRepository.delete(user);
     }
 }

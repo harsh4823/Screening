@@ -2,6 +2,7 @@ package org.example.screening.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SQLRestriction;
 import org.hibernate.proxy.HibernateProxy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -21,6 +22,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
+@SQLRestriction("deleted = false")
 public class FinancialRecord {
 
     @Id
@@ -38,7 +40,12 @@ public class FinancialRecord {
     private String category;
 
     private LocalDate transactionDate;
-    
+
+    @Column(nullable = false)
+    private boolean deleted = false;
+
+    private LocalDateTime deletedAt;
+
     @CreatedDate
     @Column(nullable = false,updatable = false)
     private LocalDateTime createdAt;

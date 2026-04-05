@@ -1,10 +1,7 @@
 package org.example.screening.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.example.screening.dto.CategoryTotal;
-import org.example.screening.dto.DashboardSummaryDto;
-import org.example.screening.dto.MonthlyTrends;
-import org.example.screening.dto.WeeklyTrends;
+import org.example.screening.dto.*;
 import org.example.screening.repository.FinancialRecordRepository;
 import org.example.screening.service.IDashboardService;
 import org.springframework.stereotype.Service;
@@ -49,13 +46,25 @@ public class DashboardServiceImp implements IDashboardService {
                         (BigDecimal) row[3]
                 )).toList();
 
+        List<RecordResponse> recentActivity = recordRepository.findRecentActivity().stream().
+                map(record -> new RecordResponse(
+                        record.getRecordId(),
+                        record.getAmount(),
+                        record.getTransactionType(),
+                        record.getCategory(),
+                        record.getDescription(),
+                        record.getTransactionDate(),
+                        record.getUser().getEmail()
+                )).toList();
+
         return new DashboardSummaryDto(
                 totalIncome,
                 totalExpense,
                 netBalance,
                 categoryTotals,
                 weeklyTrends,
-                monthlyTrends
+                monthlyTrends,
+                recentActivity
         );
     }
 }

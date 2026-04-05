@@ -70,6 +70,13 @@ public interface FinancialRecordRepository extends JpaRepository<FinancialRecord
 """)
     List<Object[]> getWeeklyTrends();
 
+    @Query("""
+    SELECT f FROM FinancialRecord f
+    ORDER BY f.createdAt DESC
+    LIMIT 10
+""")
+    List<FinancialRecord> findRecentActivity();
+
     @Modifying
     @Query("DELETE FROM FinancialRecord f WHERE f.user.userId = :userId")
     void deleteByUserId(@Param("userId") Long userId);
