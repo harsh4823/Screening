@@ -19,7 +19,7 @@ A backend system for a finance dashboard built with Spring Boot, featuring role-
 
 ## Project Structure
 
-```
+
 src/main/java/org/example/screening/
 ├── config/          # Security, Redis, AuthProvider, DataSeeder
 ├── constant/        # Application-level constants
