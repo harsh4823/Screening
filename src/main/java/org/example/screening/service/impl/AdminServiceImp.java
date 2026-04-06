@@ -1,5 +1,6 @@
 package org.example.screening.service.impl;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.example.screening.dto.AuthUserResponse;
 import org.example.screening.entity.AuthUser;
@@ -43,6 +44,7 @@ public class AdminServiceImp implements IAdminService {
         return user.isActive() ? "ACTIVE" : "INACTIVE";
     }
 
+    @Transactional
     @Override
     public void deleteUser(Long userId){
         AuthUser user = authUserRepository.findById(userId)

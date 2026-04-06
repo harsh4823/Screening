@@ -1,0 +1,539 @@
+{
+  "info": {
+    "_postman_id": "23b483ce-36b1-474e-a5da-096c8d900075",
+    "name": "Screening",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "42335900"
+  },
+  "item": [
+    {
+      "name": "AuthUser Controller",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n   \"email\" : \"user1@email.com\",\r\n   \"password\" : \"user@1\",\r\n   \"name\" : \"user1\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login User",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n   \"email\" : \"admin@finance.com\",\r\n   \"password\" : \"Admin@123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Refresh JWT Token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Refresh-Token",
+                "value": "6a9d61ef-5108-4359-affe-c7d3ebfd6f0a",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/auth/refresh",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "auth",
+                "refresh"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Logout Single",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Refresh-Token",
+                "value": "47c1d558-7c76-4073-9b48-bd8c05766a54",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJIYXJzaCIsInN1YiI6IkpXVCBUb2tlbiIsImVtYWlsIjoidXNlcjFAZW1haWwuY29tIiwiYXV0aG9yaXRpZXMiOiJST0xFX1ZJRVdFUiIsImlhdCI6MTc3NTQxMTM3NiwiZXhwIjoxNzc1NDEyMjc2fQ.iFYoO9woyvWDuEHYGbrX5V01fa-kceRX1wuoKMlnGw_8H8efGeRiDWgjizj2cJTaAxKyIV4m-FsNN_G1msVwqhNEY0QSuKq6R8yFBxlBBUKOLBTaI5ezS9BGnOLAbgRxlqnlEnLSKkmBWcPC6ee-GAtS1PwwfcxDVmykwjOt0gCrfCuMTvrU6efgT4ryGuGzXzHLU7PAlWPU9zG76IsKl6OMHilCdnin13JKrib5xTZv4HjhuGQSublnylQ7Sl-d8Zd_uPEPi219vDoyh5Wctns_UGbJHhddWy9gCuUReh5hxIrl4vdteF1ik8APP5eavCl16Vvz67elmnT0tirxNw",
+                "type": "text"
+              },
+              {
+                "key": "X-XSRF-TOKEN",
+                "value": "06504f97-c605-45d0-a6d4-a3be2d8fecb0",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/auth/logout/single",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "auth",
+                "logout",
+                "single"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Logout All",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJIYXJzaCIsInN1YiI6IkpXVCBUb2tlbiIsImVtYWlsIjoidXNlcjFAZW1haWwuY29tIiwiYXV0aG9yaXRpZXMiOiJST0xFX1ZJRVdFUiIsImlhdCI6MTc3NTQxMjAwMiwiZXhwIjoxNzc1NDEyOTAyfQ.KlFOJlIfzwRPOYWVTCk3sRhNf6fzyD7jhri6oxdaxWHkgKmNEKMuJaj98FQNvPuik17G4YiAPrV_p6gs7dCoYLkh_b1Wine8AR9oaZd9GXhBjwDtdHqUprmNFFbpa2UivbsGkDzdOOLWb5BxAyJj2iZCgTnsCzEttXnCwZzgx-sADRnw1ii8hx6QCeH23wPP7eIGUAWu6ZlXL_SPJIWIhaHbPkAVZktivIU8r3QdZA7pSnuNN_AjKcDe_UxkEYERYHXmkY6bNO9hp7mQoryZuaY8jnQoC6TlyXA-haQM3VHJFOmZXPa6ee2GNOWHiPbpAb7LnX8eTfc1wq2wvN8aTg",
+                "type": "text"
+              },
+              {
+                "key": "X-XSRF-TOKEN",
+                "value": "06504f97-c605-45d0-a6d4-a3be2d8fecb0",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/auth/logout/all",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "auth",
+                "logout",
+                "all"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Admin Controller",
+      "item": [
+        {
+          "name": "Get All User Information",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJIYXJzaCIsInN1YiI6IkpXVCBUb2tlbiIsImVtYWlsIjoiYWRtaW5AZmluYW5jZS5jb20iLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJpYXQiOjE3NzU0MjI5MTksImV4cCI6MTc3NTQyMzgxOX0.BYUhpZqh5-bJrnBTSF12WxTPmIwLozGFSHu1-jLP2tuACCRNUzX8EuCtHUqH2mq1vY3w-UtxX9UU1I-x71HLbbDICxbZnOChDvw-wMo3bOg6BsvT6ZD-RV1I415vzEl4AOr86PpKCIfqInMxGnq1jjvqnDMpWV5DJBV16wGf60aT-JelMQeGVpIRCXiSZ_9g4lMS3WDedFVfSFgK_PHcQq3MvuFpcqviToFDTqs0NjB7cL4HS8-urAOl836eJF_WtEogkAgBnSiC_yc4Y4UH7etNuGew541uDDDwehYtlwnpJgimJd4lCuUczH8k5SmTWrk0eA2am0OkksdEVTEKVQ",
+                "type": "text"
+              },
+              {
+                "key": "X-XSRF-TOKEN",
+                "value": "06504f97-c605-45d0-a6d4-a3be2d8fecb0",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/admin/get",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "admin",
+                "get"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update User Role",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJIYXJzaCIsInN1YiI6IkpXVCBUb2tlbiIsImVtYWlsIjoiYWRtaW5AZmluYW5jZS5jb20iLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJpYXQiOjE3NzU0MjI5MTksImV4cCI6MTc3NTQyMzgxOX0.BYUhpZqh5-bJrnBTSF12WxTPmIwLozGFSHu1-jLP2tuACCRNUzX8EuCtHUqH2mq1vY3w-UtxX9UU1I-x71HLbbDICxbZnOChDvw-wMo3bOg6BsvT6ZD-RV1I415vzEl4AOr86PpKCIfqInMxGnq1jjvqnDMpWV5DJBV16wGf60aT-JelMQeGVpIRCXiSZ_9g4lMS3WDedFVfSFgK_PHcQq3MvuFpcqviToFDTqs0NjB7cL4HS8-urAOl836eJF_WtEogkAgBnSiC_yc4Y4UH7etNuGew541uDDDwehYtlwnpJgimJd4lCuUczH8k5SmTWrk0eA2am0OkksdEVTEKVQ",
+                "type": "text"
+              },
+              {
+                "key": "X-XSRF-TOKEN",
+                "value": "06504f97-c605-45d0-a6d4-a3be2d8fecb0",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/admin/update/role/2?role=ROLE_ANALYST",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "admin",
+                "update",
+                "role",
+                "2"
+              ],
+              "query": [
+                {
+                  "key": "role",
+                  "value": "ROLE_ANALYST"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Toogle User Status Copy",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJIYXJzaCIsInN1YiI6IkpXVCBUb2tlbiIsImVtYWlsIjoiYWRtaW5AZmluYW5jZS5jb20iLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJpYXQiOjE3NzU0MjMzODYsImV4cCI6MTc3NTQyNDI4Nn0.wnoSBJvdeTWSrqnQlcj3Sf-EV3ywNETzSow4KWlmq3Z6AzGU_ceM7QYUQeQIV0XheznvbJWSj1Hvj9ig6c9TD6RpXCryldQ3I7Nf3pZJ2qPyd6Mv9-vKWtGQnyRFEWt43ZcSYQoh9T0ELoi5Tyve27wjQvGBIkQVMt9m5bsG2B0AIKoTb24H8oIhlMWINR4Sf6lgIYTWJkBT51tix5FUDmzyhhqS7R3IsnJUFNGlLF8J9177tqCPGwqtCnKf9rGrNrPIM2kqH3q4zeicPdyqItiIeKpO0I0o4g9YRnhvP92vN9gsjbEQkkPZQytjoT20QA36TdmcVZcCKrTxxw0aog",
+                "type": "text"
+              },
+              {
+                "key": "X-XSRF-TOKEN",
+                "value": "06504f97-c605-45d0-a6d4-a3be2d8fecb0",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/admin/delete/2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "admin",
+                "delete",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Toogle User Status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJIYXJzaCIsInN1YiI6IkpXVCBUb2tlbiIsImVtYWlsIjoiYWRtaW5AZmluYW5jZS5jb20iLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJpYXQiOjE3NzU0MjI5MTksImV4cCI6MTc3NTQyMzgxOX0.BYUhpZqh5-bJrnBTSF12WxTPmIwLozGFSHu1-jLP2tuACCRNUzX8EuCtHUqH2mq1vY3w-UtxX9UU1I-x71HLbbDICxbZnOChDvw-wMo3bOg6BsvT6ZD-RV1I415vzEl4AOr86PpKCIfqInMxGnq1jjvqnDMpWV5DJBV16wGf60aT-JelMQeGVpIRCXiSZ_9g4lMS3WDedFVfSFgK_PHcQq3MvuFpcqviToFDTqs0NjB7cL4HS8-urAOl836eJF_WtEogkAgBnSiC_yc4Y4UH7etNuGew541uDDDwehYtlwnpJgimJd4lCuUczH8k5SmTWrk0eA2am0OkksdEVTEKVQ",
+                "type": "text"
+              },
+              {
+                "key": "X-XSRF-TOKEN",
+                "value": "06504f97-c605-45d0-a6d4-a3be2d8fecb0",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/admin/toogle/status/2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "admin",
+                "toogle",
+                "status",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Financial Record Controller",
+      "item": [
+        {
+          "name": "Create Records",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJIYXJzaCIsInN1YiI6IkpXVCBUb2tlbiIsImVtYWlsIjoiYWRtaW5AZmluYW5jZS5jb20iLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJpYXQiOjE3NzU0NTg5MDEsImV4cCI6MTc3NTQ1OTgwMX0.KUkMpLzQJrGGbPbRcTT2BUahQkoe7NaUqfXqkf0OdXdHrxqGXFIAO7RLSKuktI3wngIzNn_JVWtFpByF8U3gF4DAJ69uVKs3lhWNZjO3tSSkh-PtPPVdesN2kdgFWqnUiBHUecOd8WxD0mXv_uYii_rUM25Sppq_79yeUV__pKG7Vz53Ab6jkRY3PkWssoqYrCdTlp6JmziFwzNT_OgolKXOK8hL4sccp98PJmRHRzpz1LQyS2z2Mvetng2XHwZK0O6TlQ1zLocdhCiiInunP4hMwlkHT6bsVLr-pZT7H2CwVTs2RDNOc5KGZpyu3gx4t6RwGJxxX6QJ7il5-aWBXQ",
+                "type": "text"
+              },
+              {
+                "key": "X-XSRF-TOKEN",
+                "value": "5cfedda5-05a4-482f-9c5e-23da146eae35",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"amount\": 5000.00,\r\n    \"type\": \"EXPENSE\",\r\n    \"category\": \"Salary\",\r\n    \"description\": \"Monthly salary\",\r\n    \"transactionDate\": \"2026-04-06\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/records/create",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "records",
+                "create"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Records",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJIYXJzaCIsInN1YiI6IkpXVCBUb2tlbiIsImVtYWlsIjoiYWRtaW5AZmluYW5jZS5jb20iLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJpYXQiOjE3NzU0NTg5MDEsImV4cCI6MTc3NTQ1OTgwMX0.KUkMpLzQJrGGbPbRcTT2BUahQkoe7NaUqfXqkf0OdXdHrxqGXFIAO7RLSKuktI3wngIzNn_JVWtFpByF8U3gF4DAJ69uVKs3lhWNZjO3tSSkh-PtPPVdesN2kdgFWqnUiBHUecOd8WxD0mXv_uYii_rUM25Sppq_79yeUV__pKG7Vz53Ab6jkRY3PkWssoqYrCdTlp6JmziFwzNT_OgolKXOK8hL4sccp98PJmRHRzpz1LQyS2z2Mvetng2XHwZK0O6TlQ1zLocdhCiiInunP4hMwlkHT6bsVLr-pZT7H2CwVTs2RDNOc5KGZpyu3gx4t6RwGJxxX6QJ7il5-aWBXQ",
+                "type": "text"
+              },
+              {
+                "key": "X-XSRF-TOKEN",
+                "value": "5cfedda5-05a4-482f-9c5e-23da146eae35",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/records/get",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "records",
+                "get"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Records With Filter",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJIYXJzaCIsInN1YiI6IkpXVCBUb2tlbiIsImVtYWlsIjoiYWRtaW5AZmluYW5jZS5jb20iLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJpYXQiOjE3NzU0NTg5MDEsImV4cCI6MTc3NTQ1OTgwMX0.KUkMpLzQJrGGbPbRcTT2BUahQkoe7NaUqfXqkf0OdXdHrxqGXFIAO7RLSKuktI3wngIzNn_JVWtFpByF8U3gF4DAJ69uVKs3lhWNZjO3tSSkh-PtPPVdesN2kdgFWqnUiBHUecOd8WxD0mXv_uYii_rUM25Sppq_79yeUV__pKG7Vz53Ab6jkRY3PkWssoqYrCdTlp6JmziFwzNT_OgolKXOK8hL4sccp98PJmRHRzpz1LQyS2z2Mvetng2XHwZK0O6TlQ1zLocdhCiiInunP4hMwlkHT6bsVLr-pZT7H2CwVTs2RDNOc5KGZpyu3gx4t6RwGJxxX6QJ7il5-aWBXQ",
+                "type": "text"
+              },
+              {
+                "key": "X-XSRF-TOKEN",
+                "value": "5cfedda5-05a4-482f-9c5e-23da146eae35",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/records/get?type=INCOME",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "records",
+                "get"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "INCOME"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Record",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJIYXJzaCIsInN1YiI6IkpXVCBUb2tlbiIsImVtYWlsIjoiYWRtaW5AZmluYW5jZS5jb20iLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJpYXQiOjE3NzU0NTg5MDEsImV4cCI6MTc3NTQ1OTgwMX0.KUkMpLzQJrGGbPbRcTT2BUahQkoe7NaUqfXqkf0OdXdHrxqGXFIAO7RLSKuktI3wngIzNn_JVWtFpByF8U3gF4DAJ69uVKs3lhWNZjO3tSSkh-PtPPVdesN2kdgFWqnUiBHUecOd8WxD0mXv_uYii_rUM25Sppq_79yeUV__pKG7Vz53Ab6jkRY3PkWssoqYrCdTlp6JmziFwzNT_OgolKXOK8hL4sccp98PJmRHRzpz1LQyS2z2Mvetng2XHwZK0O6TlQ1zLocdhCiiInunP4hMwlkHT6bsVLr-pZT7H2CwVTs2RDNOc5KGZpyu3gx4t6RwGJxxX6QJ7il5-aWBXQ",
+                "type": "text"
+              },
+              {
+                "key": "X-XSRF-TOKEN",
+                "value": "5cfedda5-05a4-482f-9c5e-23da146eae35",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"amount\": 5000.00,\r\n    \"type\": \"EXPENSE\",\r\n    \"category\": \"Salary\",\r\n    \"description\": \"Monthly salary\",\r\n    \"transactionDate\": \"2026-04-06\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/records/update/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "records",
+                "update",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Record",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJIYXJzaCIsInN1YiI6IkpXVCBUb2tlbiIsImVtYWlsIjoiYWRtaW5AZmluYW5jZS5jb20iLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJpYXQiOjE3NzU0NTg5MDEsImV4cCI6MTc3NTQ1OTgwMX0.KUkMpLzQJrGGbPbRcTT2BUahQkoe7NaUqfXqkf0OdXdHrxqGXFIAO7RLSKuktI3wngIzNn_JVWtFpByF8U3gF4DAJ69uVKs3lhWNZjO3tSSkh-PtPPVdesN2kdgFWqnUiBHUecOd8WxD0mXv_uYii_rUM25Sppq_79yeUV__pKG7Vz53Ab6jkRY3PkWssoqYrCdTlp6JmziFwzNT_OgolKXOK8hL4sccp98PJmRHRzpz1LQyS2z2Mvetng2XHwZK0O6TlQ1zLocdhCiiInunP4hMwlkHT6bsVLr-pZT7H2CwVTs2RDNOc5KGZpyu3gx4t6RwGJxxX6QJ7il5-aWBXQ",
+                "type": "text"
+              },
+              {
+                "key": "X-XSRF-TOKEN",
+                "value": "5cfedda5-05a4-482f-9c5e-23da146eae35",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"amount\": 5000.00,\r\n    \"type\": \"EXPENSE\",\r\n    \"category\": \"Salary\",\r\n    \"description\": \"Monthly salary\",\r\n    \"transactionDate\": \"2026-04-06\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/records/delete/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "records",
+                "delete",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "DashBoard Summary Controller",
+      "item": [
+        {
+          "name": "Get All Records Copy",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJIYXJzaCIsInN1YiI6IkpXVCBUb2tlbiIsImVtYWlsIjoiYWRtaW5AZmluYW5jZS5jb20iLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJpYXQiOjE3NzU0NTg5MDEsImV4cCI6MTc3NTQ1OTgwMX0.KUkMpLzQJrGGbPbRcTT2BUahQkoe7NaUqfXqkf0OdXdHrxqGXFIAO7RLSKuktI3wngIzNn_JVWtFpByF8U3gF4DAJ69uVKs3lhWNZjO3tSSkh-PtPPVdesN2kdgFWqnUiBHUecOd8WxD0mXv_uYii_rUM25Sppq_79yeUV__pKG7Vz53Ab6jkRY3PkWssoqYrCdTlp6JmziFwzNT_OgolKXOK8hL4sccp98PJmRHRzpz1LQyS2z2Mvetng2XHwZK0O6TlQ1zLocdhCiiInunP4hMwlkHT6bsVLr-pZT7H2CwVTs2RDNOc5KGZpyu3gx4t6RwGJxxX6QJ7il5-aWBXQ",
+                "type": "text"
+              },
+              {
+                "key": "X-XSRF-TOKEN",
+                "value": "5cfedda5-05a4-482f-9c5e-23da146eae35",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/dashboard/summary",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "dashboard",
+                "summary"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
