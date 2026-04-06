@@ -31,8 +31,7 @@ src/main/java/org/example/screening/
 ├── filter/          # JWT validation filter, CSRF filter
 ├── repository/      # JPA + Redis repositories
 ├── service/         # Service interfaces and implementations
-└── util/            # AuthUtil (JWT generation, key management) 
-
+└── util/            # AuthUtil (JWT generation, key management)
 ```
 
 ---
