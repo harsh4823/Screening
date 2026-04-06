@@ -27,7 +27,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class AuthUtil {
 
-    private final Environment env;
     private final AuthUserRepository authUserRepository;
     private PrivateKey privateKey;
     @Getter

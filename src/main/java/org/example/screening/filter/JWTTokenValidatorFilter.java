@@ -28,10 +28,8 @@ import java.util.List;
 public class JWTTokenValidatorFilter extends OncePerRequestFilter {
 
     private static final List<String> EXCLUDED_PATHS = Arrays.asList(
-            "/login",
             "/auth/login",
             "/auth/register",
-            "/user",
             "/auth/refresh"
     );
 

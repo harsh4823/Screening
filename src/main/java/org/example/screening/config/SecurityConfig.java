@@ -50,13 +50,11 @@ public class SecurityConfig {
                 .csrf(csrfConfig -> csrfConfig
                         .csrfTokenRequestHandler(csrfTokenRequestAttributeHandler)
                         .ignoringRequestMatchers(
-                                "/login",
                                 "/auth/login",
                                 "/auth/register",
                                 "/auth/refresh",
                                 "/auth/logout/single",
-                                "/auth/logout/all",
-                                "/auth/certs"
+                                "/auth/logout/all"
                         ).csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .addFilterAfter(new CsrfTokenFilter(), BasicAuthenticationFilter.class)
                 .addFilterBefore(jwtTokenValidatorFilter, BasicAuthenticationFilter.class)
