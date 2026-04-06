@@ -32,6 +32,7 @@ src/main/java/org/example/screening/
 ├── repository/      # JPA + Redis repositories
 ├── service/         # Service interfaces and implementations
 └── util/            # AuthUtil (JWT generation, key management)
+
 ```
 
 ---
